@@ -1,6 +1,10 @@
 'use strict'
 
 let botones = [];
+const generarVistaNoticia=(id,url)=>{
+    
+
+}
 
 const generarNoticia=(id,titulo,descripcion,fecha,categoria)=>{
     let noticia= `<div class="card col-12 mt-2" >                        
