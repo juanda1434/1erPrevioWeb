@@ -55,8 +55,8 @@ const cargarCategoria= (categoria,url)=>{
         document.getElementById(categoria).innerHTML= todas;
     });
 }
-cargarCategoria("deportes","http://demo6497253.mockable.io/categoria/deporte");
-cargarCategoria("tecnologia","http://demo6497253.mockable.io/categoria/tecnologia");
-cargarNoticias("http://demo6497253.mockable.io/noticias");
+cargarCategoria("deportes","https://demo6497253.mockable.io/categoria/deporte");
+cargarCategoria("tecnologia","https://demo6497253.mockable.io/categoria/tecnologia");
+cargarNoticias("https://demo6497253.mockable.io/noticias");
 //document.getElementById("Categorias-Noticias").innerHTML='Cargando...';
 
