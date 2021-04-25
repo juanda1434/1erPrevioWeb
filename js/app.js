@@ -3,7 +3,7 @@
 const botones = [];
 
 const generarVistaNoticia=(id)=>{
-    const url= `http://demo6497253.mockable.io/noticias/${id}`;
+    const url= `https://demo6497253.mockable.io/noticias/${id}`;
     fetch(url)
     .then(r=>r.json())
     .then(noticia=>{
