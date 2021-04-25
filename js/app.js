@@ -1,9 +1,45 @@
 'use strict'
 
-let botones = [];
-const generarVistaNoticia=(id,url)=>{
-    
+const botones = [];
 
+const generarVistaNoticia=(id)=>{
+    const url= `http://demo6497253.mockable.io/noticias/${id}`;
+    fetch(url)
+    .then(r=>r.json())
+    .then(noticia=>{
+        const noticiaHtml=generarVista(noticia);
+        document.getElementById("contenedor").innerHTML=noticiaHtml;        
+    document.getElementById("btnTodas").onclick=null;
+    document.getElementById("btnTodas").onclick=()=>{generarDefault()};
+    }).catch(e=>{
+console.log(e)
+    });
+    
+}
+
+const generarDefault = ()=>{
+    const plantilla= `<img src="img/colegio.jpg" style="max-height: 300px;" class="img-fluid">
+    <section class="mt-3 row" id="noticias">
+        Cargando ...
+    </section>`;
+    document.getElementById("contenedor").innerHTML=plantilla;
+    cargarNoticias("https://demo6497253.mockable.io/noticias");
+}
+
+const generarVista=(noticia)=>{
+    return `<img src="${noticia.img}" style="max-height: 300px;" class="img-fluid">
+    <section class="mt-3 row" id="noticias">
+    <div class="card col-12 mt-2" >                        
+    <div class="card-body">
+      <h5 class="card-title">${noticia.titulo} - ${noticia.categoria} - ${noticia.fecha}</h5>
+      <div class="card-text">
+         <p>${noticia.descripcion}</p>
+         ${noticia.detalle}
+      </div>
+      
+    </div>
+  </div>
+    </section> <button id="btnTodas" class="btn btn-primary">Todas las noticias</button>`;   
 }
 
 const generarNoticia=(id,titulo,descripcion,fecha,categoria)=>{
@@ -16,7 +52,7 @@ const generarNoticia=(id,titulo,descripcion,fecha,categoria)=>{
       <a href="#" id="${categoria}${id}" class="card-link">Ver mas...</a>
     </div>
   </div>`;
-  botones[botones.length]={"id":id,"btn":categoria+id};
+  botones[id]=categoria+id;
   return noticia;
 }
 const cargarNoticias= (url)=>{
@@ -36,6 +72,7 @@ todas+= generarNoticia(noticia.id,noticia.titulo,noticia.descripcion,noticia.fec
         i++;
         });
         document.getElementById("noticias").innerHTML= todas;
+        addAction();
     });
 }
 const cargarCategoria= (categoria,url)=>{
@@ -50,6 +87,7 @@ const cargarCategoria= (categoria,url)=>{
                 todas+=`<li class="list-group-item" id="d${titular.id}">
                 ${titular.titulo}
             </li>`;
+            botones[titular.id]=`d${titular.id}`;
             }else{
                 return false;
             }
@@ -57,8 +95,16 @@ const cargarCategoria= (categoria,url)=>{
         i++;
         });
         document.getElementById(categoria).innerHTML= todas;
+        addAction();
     });
 }
+
+const addAction=()=>{
+    botones.map((id,i)=>{
+           document.getElementById(id).onclick= (e)=>{console.log(i);e.preventDefault(); generarVistaNoticia(i)}
+    });
+}
+
 cargarCategoria("deportes","https://demo6497253.mockable.io/categoria/deporte");
 cargarCategoria("tecnologia","https://demo6497253.mockable.io/categoria/tecnologia");
 cargarNoticias("https://demo6497253.mockable.io/noticias");
